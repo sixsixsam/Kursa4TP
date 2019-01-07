@@ -1,0 +1,746 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcadList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pattern_Id" Type="int" Nullable="false" />
+          <Property Name="Student_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Rating_Id" Type="int" Nullable="false" />
+          <Property Name="Lab_Id" Type="int" Nullable="false" />
+          <Property Name="Exam_Id" Type="int" Nullable="false" />
+          <Property Name="Counter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="BirthDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamValue" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Labs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstLab" Type="int" Nullable="false" />
+          <Property Name="SecondLab" Type="int" Nullable="false" />
+          <Property Name="ThirdLab" Type="int" Nullable="false" />
+          <Property Name="FourthLab" Type="int" Nullable="false" />
+          <Property Name="FifthLab" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pattern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Semester" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Professor_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Subject_Id" Type="int" Nullable="false" />
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstRating" Type="int" Nullable="false" />
+          <Property Name="SecondRating" Type="int" Nullable="false" />
+          <Property Name="ThirdRating" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentGroup">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Group_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AcadList_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Labs">
+          <End Role="Labs" Type="Self.Labs" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Labs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Lab_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Pattern">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Pattern_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Rating">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Rating_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StudentGroup_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentGroup" Type="Self.StudentGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroup">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_StudentGroup_dbo_Groups_Group_Id">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentGroup" Type="Self.StudentGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroup">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Professor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="AcadList" EntityType="Self.AcadList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Labs" EntityType="Self.Labs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pattern" EntityType="Self.Pattern" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentGroup" EntityType="Self.StudentGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AcadList_AspNetUsers" Association="Self.FK_AcadList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Exam" Association="Self.FK_AcadList_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Labs" Association="Self.FK_AcadList_Labs">
+            <End Role="Labs" EntitySet="Labs" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Pattern" Association="Self.FK_AcadList_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Rating" Association="Self.FK_AcadList_Rating">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StudentGroup_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_StudentGroup_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="StudentGroup" EntitySet="StudentGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_StudentGroup_dbo_Groups_Group_Id" Association="Self.FK_dbo_StudentGroup_dbo_Groups_Group_Id">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="StudentGroup" EntitySet="StudentGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern_AspNetUsers" Association="Self.FK_Pattern_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern_Groups" Association="Self.FK_Pattern_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern_Subject" Association="Self.FK_Pattern_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AcadList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating_Id" Type="Int32" Nullable="false" />
+          <Property Name="Lab_Id" Type="Int32" Nullable="false" />
+          <Property Name="Exam_Id" Type="Int32" Nullable="false" />
+          <Property Name="Counter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_AcadList_Exam" FromRole="AcadList" ToRole="Exam" />
+          <NavigationProperty Name="Labs" Relationship="Self.FK_AcadList_Labs" FromRole="AcadList" ToRole="Labs" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK_AcadList_Rating" FromRole="AcadList" ToRole="Rating" />
+          <Property Name="Student_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_AcadList_AspNetUsers" FromRole="AcadList" ToRole="AspNetUsers" />
+          <Property Name="Pattern_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pattern" Relationship="Model.FK_AcadList_Pattern" FromRole="AcadList" ToRole="Pattern" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Groups" Relationship="Self.StudentGroup" FromRole="AspNetUsers" ToRole="Groups" />
+          <NavigationProperty Name="AcadList" Relationship="Model.FK_AcadList_AspNetUsers" FromRole="AspNetUsers" ToRole="AcadList" />
+          <NavigationProperty Name="Pattern" Relationship="Model.FK_Pattern_AspNetUsers" FromRole="AspNetUsers" ToRole="Pattern" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AcadList" Relationship="Self.FK_AcadList_Exam" FromRole="Exam" ToRole="AcadList" />
+          <Property Name="ExamValue" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.StudentGroup" FromRole="Groups" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Pattern" Relationship="Model.FK_Pattern_Groups" FromRole="Groups" ToRole="Pattern" />
+        </EntityType>
+        <EntityType Name="Labs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstLab" Type="Int32" Nullable="false" />
+          <Property Name="SecondLab" Type="Int32" Nullable="false" />
+          <Property Name="ThirdLab" Type="Int32" Nullable="false" />
+          <Property Name="FourthLab" Type="Int32" Nullable="false" />
+          <Property Name="FifthLab" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcadList" Relationship="Self.FK_AcadList_Labs" FromRole="Labs" ToRole="AcadList" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstRating" Type="Int32" Nullable="false" />
+          <Property Name="SecondRating" Type="Int32" Nullable="false" />
+          <Property Name="ThirdRating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcadList" Relationship="Self.FK_AcadList_Rating" FromRole="Rating" ToRole="AcadList" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pattern" Relationship="Model.FK_Pattern_Subject" FromRole="Subject" ToRole="Pattern" />
+        </EntityType>
+        <Association Name="FK_AcadList_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Exam_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Labs">
+          <End Role="Labs" Type="Self.Labs" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Labs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Lab_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Rating">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="AcadList" Type="Self.AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Rating_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <Association Name="StudentGroup">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AcadList" EntityType="Self.AcadList" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Labs" EntityType="Self.Labs" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" />
+          <AssociationSet Name="FK_AcadList_Exam" Association="Self.FK_AcadList_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Labs" Association="Self.FK_AcadList_Labs">
+            <End Role="Labs" EntitySet="Labs" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Rating" Association="Self.FK_AcadList_Rating">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="StudentGroup" Association="Self.StudentGroup">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_AspNetUsers" Association="Model.FK_AcadList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+          <EntitySet Name="Pattern" EntityType="Model.Pattern" />
+          <AssociationSet Name="FK_Pattern_AspNetUsers" Association="Model.FK_Pattern_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern_Groups" Association="Model.FK_Pattern_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pattern_Subject" Association="Model.FK_Pattern_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcadList_Pattern" Association="Model.FK_AcadList_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="AcadList" EntitySet="AcadList" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_AcadList_AspNetUsers">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.AcadList" Role="AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pattern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Semester" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Professor_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+          <Property Name="Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_Pattern_AspNetUsers" FromRole="Pattern" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Groups" Relationship="Model.FK_Pattern_Groups" FromRole="Pattern" ToRole="Groups" />
+          <NavigationProperty Name="Subject" Relationship="Model.FK_Pattern_Subject" FromRole="Pattern" ToRole="Subject" />
+          <NavigationProperty Name="AcadList" Relationship="Model.FK_AcadList_Pattern" FromRole="Pattern" ToRole="AcadList" />
+        </EntityType>
+        <Association Name="FK_Pattern_AspNetUsers">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.Pattern" Role="Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Professor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern_Groups">
+          <End Type="Model.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="Model.Pattern" Role="Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pattern_Subject">
+          <End Type="Model.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="Model.Pattern" Role="Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcadList_Pattern">
+          <End Type="Model.Pattern" Role="Pattern" Multiplicity="1" />
+          <End Type="Model.AcadList" Role="AcadList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AcadList">
+              <PropertyRef Name="Pattern_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AcadList">
+            <EntityTypeMapping TypeName="Model.AcadList">
+              <MappingFragment StoreEntitySet="AcadList">
+                <ScalarProperty Name="Pattern_Id" ColumnName="Pattern_Id" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rating_Id" ColumnName="Rating_Id" />
+                <ScalarProperty Name="Lab_Id" ColumnName="Lab_Id" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+                <ScalarProperty Name="Counter" ColumnName="Counter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam">
+            <EntityTypeMapping TypeName="Model.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="ExamValue" ColumnName="ExamValue" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="Model.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Labs">
+            <EntityTypeMapping TypeName="Model.Labs">
+              <MappingFragment StoreEntitySet="Labs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstLab" ColumnName="FirstLab" />
+                <ScalarProperty Name="SecondLab" ColumnName="SecondLab" />
+                <ScalarProperty Name="ThirdLab" ColumnName="ThirdLab" />
+                <ScalarProperty Name="FourthLab" ColumnName="FourthLab" />
+                <ScalarProperty Name="FifthLab" ColumnName="FifthLab" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="Model.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstRating" ColumnName="FirstRating" />
+                <ScalarProperty Name="SecondRating" ColumnName="SecondRating" />
+                <ScalarProperty Name="ThirdRating" ColumnName="ThirdRating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject">
+            <EntityTypeMapping TypeName="Model.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="StudentGroup" TypeName="Model.StudentGroup" StoreEntitySet="StudentGroup">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="User_Id" />
+            </EndProperty>
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="Group_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Pattern">
+            <EntityTypeMapping TypeName="Model.Pattern">
+              <MappingFragment StoreEntitySet="Pattern">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Professor_Id" ColumnName="Professor_Id" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

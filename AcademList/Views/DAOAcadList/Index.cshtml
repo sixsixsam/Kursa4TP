@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AcademList.AcadList>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Ведомость</h2>
+
+<p>
+    @if (User.IsInRole("Professor"))
+    {
+        @Html.ActionLink("Добавить запись", "Create")
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>Студент</th>
+        <th>ЛР1</th>
+        <th>ЛР2</th>
+        <th>ЛР3</th>
+        <th>ЛР4</th>
+        <th>ЛР5</th>
+        <th>РК1</th>
+        <th>РК2</th>
+        <th>РК3</th>
+        <th>Экзамен</th>
+        <th>Баллы</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUsers.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.FirstLab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.SecondLab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.ThirdLab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.FourthLab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labs.FifthLab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating.FirstRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating.SecondRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating.ThirdRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exam.ExamValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Counter)
+            </td>
+            @if (User.IsInRole("Professor"))
+            {
+            <td>
+                @Html.ActionLink("Оценить лабораторные", "Edit", "DAOLabs", new { id = item.Id }, "POST") |
+                @Html.ActionLink("Оценить рейтинги", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Оценить экзамен", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Оценить баллы", "Edit", new { id = item.Id })
+            </td>
+            }
+        </tr>
+            }
+        
+
+</table>

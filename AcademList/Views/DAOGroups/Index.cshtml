@@ -1,0 +1,30 @@
+﻿@model IEnumerable<AcademList.Groups>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Группы</h2>
+
+<p>
+    @Html.ActionLink("Новая запись", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Название</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

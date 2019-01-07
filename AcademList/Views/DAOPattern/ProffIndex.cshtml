@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AcademList.Pattern>
+
+@{
+    ViewBag.Title = "ProffIndex";
+}
+
+<h2>Шаблон ведомости</h2>
+
+<p>
+    @Html.ActionLink("Новая запись", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Номер</th>
+        <th>Семестер</th>
+        <th>Преподаватель</th>
+        <th>Предмет</th>
+        <th>Группа</th>
+        <th>Статус</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Semester)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Groups.GroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить статус", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Посмотреть", "AcadListIndex", "DAOAcadList", new { id = item.Id }, "POST")
+        </td>
+    </tr>
+}
+
+</table>

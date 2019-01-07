@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AcademList.AspNetUsers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Пользователи</h2>
+
+<table class="table">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>E-mail</th>
+        <th>Дата рождения</th>
+        <th>Роль в системе</th>
+        <th>Группа</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>@foreach (var item1 in item.AspNetRoles)
+            {
+                @item1.Name
+                <br>
+            }
+        </td>
+        <td>@foreach (var item2 in item.Groups)
+            {
+                @item2.GroupName
+                <br>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id = item.Id })
+        </td>
+
+    </tr>
+}
+
+</table>
